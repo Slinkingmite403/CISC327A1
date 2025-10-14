@@ -58,7 +58,10 @@ def add_sample_data():
         sample_books = [
             ('The Great Gatsby', 'F. Scott Fitzgerald', '9780743273565', 3),
             ('To Kill a Mockingbird', 'Harper Lee', '9780061120084', 2),
-            ('1984', 'George Orwell', '9780451524935', 1)
+            ('1984', 'George Orwell', '9780451524935', 1),
+            ('Fahrenheit 451', 'Ray Bradbury', '9780759274663', 3),
+            ('Lord of the Rings', 'J.R.R. Tolkien', '9707354174842', 3),
+            ('The Hobbit', 'J.R.R. Tolkien', '9706848396888', 4)
         ]
         
         for title, author, isbn, copies in sample_books:
@@ -78,6 +81,50 @@ def add_sample_data():
         # Update available copies for 1984
         conn.execute('UPDATE books SET available_copies = 0 WHERE id = 3')
         
+        # Make a borrow record for Fahrenheit 451
+        conn.execute('''
+            INSERT INTO borrow_records (patron_id, book_id, borrow_date, due_date)
+            VALUES (?, ?, ?, ?)
+        ''', ('123456', 4, 
+              (datetime.now() - timedelta(days=16)).isoformat(),
+              (datetime.now() - timedelta(days=2)).isoformat()))
+        
+        # Update available copies for Fahrenheit 451
+        conn.execute('UPDATE books SET available_copies = 2 WHERE id = 4')
+
+        # Make a borrow record for Lord of the Rings
+        conn.execute('''
+            INSERT INTO borrow_records (patron_id, book_id, borrow_date, due_date)
+            VALUES (?, ?, ?, ?)
+        ''', ('123456', 5, 
+              (datetime.now() - timedelta(days=25)).isoformat(),
+              (datetime.now() - timedelta(days=9)).isoformat()))
+        
+        # Update available copies for Lord of the Rings
+        conn.execute('UPDATE books SET available_copies = 2 WHERE id = 5')
+
+        # Make a borrow record for The Great Gatsby
+        conn.execute('''
+            INSERT INTO borrow_records (patron_id, book_id, borrow_date, due_date)
+            VALUES (?, ?, ?, ?)
+        ''', ('123456', 1, 
+              (datetime.now() - timedelta(days=55)).isoformat(),
+              (datetime.now() - timedelta(days=41)).isoformat()))
+        
+        # Update available copies for 1984
+        conn.execute('UPDATE books SET available_copies = 2 WHERE id = 1')
+
+        # Make a borrow record for The Hobbit
+        conn.execute('''
+            INSERT INTO borrow_records (patron_id, book_id, borrow_date, due_date)
+            VALUES (?, ?, ?, ?)
+        ''', ('123456', 6, 
+              (datetime.now() - timedelta(days=55)).isoformat(),
+              (datetime.now() - timedelta(days=41)).isoformat()))
+        
+        # Update available copies for 1984
+        conn.execute('UPDATE books SET available_copies = 3 WHERE id = 6')
+
         conn.commit()
     
     conn.close()

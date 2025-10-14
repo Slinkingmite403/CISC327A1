@@ -60,7 +60,7 @@ The system shall provide search functionality with the following parameters:
 The system shall display patron status for a particular patron that includes the following: 
 
 - Currently borrowed books with due dates
-- Total late fees owed  
+- Total late fees owed
 - Number of books currently borrowed
 - Borrowing history
 

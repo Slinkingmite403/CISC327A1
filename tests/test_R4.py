@@ -1,22 +1,22 @@
 import pytest
 from library_service import return_book_by_patron
 
-def test_return_book_successful():
+def test_return_book_successful():      # TEST SUCCESS
     success, msg = return_book_by_patron("123456", 1)
     assert success is True
-    assert "returned successfully" in msg
+    assert "Successfully returned" in msg
 
-def test_return_book_invalid_patron_id():
+def test_return_book_invalid_patron_id():       # TEST SUCCESS
     success, msg = return_book_by_patron("12", 1)
     assert success is False
-    assert "invalid patron" in msg
+    assert "Invalid patron" in msg
     
-def test_return_book_invalid_book_id():
+def test_return_book_invalid_book_id():     # TEST SUCCESS
     success, msg = return_book_by_patron("123456", -1)
     assert success is False
-    assert "book" in msg
+    assert "Invalid book" in msg
 
-def test_return_book_not_borrowed():
-    success, msg = return_book_by_patron("123456", 9999)
+def test_return_book_not_borrowed():        # TEST SUCCESS
+    success, msg = return_book_by_patron("123456", 2)
     assert success is False
-    assert "not borrowed" in msg
+    assert "Patron has no record of borrowing this book" in msg
